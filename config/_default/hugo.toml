@@ -1,0 +1,64 @@
+baseURL = 'https://fedora-riscv.github.io'
+languageCode = 'zh-CN'
+# title = 'Fedora-V Force'
+theme = 'diary'
+
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+
+[languages]
+    [languages.en]
+        contentDir = 'content/en'
+        disabled = false
+        languageCode = 'en-US'
+        languageDirection = 'ltr'
+        languageName = 'English'
+        title = 'Fedora-V Force'
+        weight = 2
+    [languages.en.params]
+        subtitle = '哆啦V盟'
+    [languages.en.menus]
+        [[languages.en.menus.main]]
+        url = "/en/categories"
+        name = "Categories"
+        weight = 2
+        [[languages.en.menus.main]]
+        url = "/en/tags"
+        name = "Tags"
+        weight = 3
+        [[languages.en.menus.main]]
+        url = "/en/posts"
+        name = "Archive"
+        weight = 1
+        [[languages.en.menus.main]]
+        url = "/en/index.xml"
+        name = "RSS Feed"
+        weight = 4
+
+    [languages.zh]
+        contentDir = 'content/zh'
+        disabled = false
+        languageCode = 'zh-CN'
+        languageDirection = 'ltr'
+        languageName = '简体中文'
+        title = 'Fedora-V Force'
+        weight = 2
+    [languages.zh.params]
+        subtitle = '哆啦V盟'
+    [languages.zh.menus]
+        [[languages.zh.menus.main]]
+        url = "/zh/categories"
+        name = "Categories"
+        weight = 2
+        [[languages.zh.menus.main]]
+        url = "/zh/tags"
+        name = "Tags"
+        weight = 3
+        [[languages.zh.menus.main]]
+        url = "/zh/posts"
+        name = "Archive"
+        weight = 1
+        [[languages.zh.menus.main]]
+        url = "/zh/index.xml"
+        name = "RSS Feed"
+        weight = 4
