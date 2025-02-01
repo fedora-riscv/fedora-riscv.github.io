@@ -1,3 +1,9 @@
 [submodule "themes/diary"]
 	path = themes/diary
 	url = https://github.com/AmazingRise/hugo-theme-diary.git
+[submodule "content/fedora-riscv-devel-docs"]
+	path = content/fedora-riscv-devel-docs
+	url = https://github.com/fedora-riscv/Fedora_riscv_devel_docs.git
+[submodule "content/test-reports"]
+	path = content/test-reports
+	url = https://github.com/fedora-riscv/test-reports.git
