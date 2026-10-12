@@ -29,7 +29,3 @@ weight = 4
 [[menu.main]]
 url = "/fedora-riscv-devel-docs"
 name = "Fedora-RISC-V Devel Docs"
-
-[[menu.main]]
-url = "/test-reports"
-name = "Test Reports"
