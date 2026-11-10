@@ -105,7 +105,7 @@ Mimick is a dependency of ROS2. It does not natively support Riscv64 and needs a
 
 ### **Fedora Environment Variables**
 
-Also, for some unknown reason, building `qt_gui_cpp` requires setting some RPM-related environment variables. This problem occurs on every architecture.
+Also, for some unknown reason, building `qt_gui_cpp` requires setting some RPM-related environment variables. This problem is not specific to one architecture.
 
 ```
 export RPM_ARCH=riscv64 #取决于你的架构，x86_64 也有这个问题

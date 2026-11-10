@@ -4,7 +4,7 @@
 For every translated page this verifies that the parts a translator must not
 change are identical: fenced code blocks (byte for byte), image destinations,
 link URLs, heading levels, table shapes and the [TOC] / legacy heading markers.
-Exit status is 1 when any page differs.
+Exit status is 1 when any page differs or is stale.
 
 Each translation records `sourceHash`, the MD5 of the original's body (what
 Hugo calls .RawContent). The theme flags a translation whose original has
@@ -46,6 +46,11 @@ def update_hash(en_file, zh_file):
     if new != text:
         en_file.write_text(new, encoding="utf-8")
     return h
+
+
+def recorded_hash(en_file):
+    m = re.search(r'(?m)^sourceHash:\s*"?([0-9a-f]*)"?\s*$', en_file.read_text(encoding="utf-8"))
+    return m.group(1) if m else ""
 
 
 def body(text):
@@ -106,9 +111,14 @@ def main(args):
             for p in problems:
                 print(f"  - {p}")
         else:
-            print(f"ok   {rel}")
+            zh_file = ZH / f.relative_to(EN)
             if update:
-                print(f"     sourceHash {update_hash(f, ZH / f.relative_to(EN))}")
+                print(f"ok   {rel}\n     sourceHash {update_hash(f, zh_file)}")
+            elif recorded_hash(f) != source_hash(zh_file.read_text(encoding="utf-8")):
+                bad += 1
+                print(f"STALE {rel}: the Chinese original changed; update the translation, then run --update-hash")
+            else:
+                print(f"ok   {rel}")
     if not files:
         print("no translated pages found")
     return 1 if bad else 0
