@@ -1,20 +1,20 @@
 {{ define "main" }}
 {{- $m := partial "meta.html" . }}
 <div class="doc-head"><div class="wrap">
-  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>{{ $m.title }}</span></nav>
+  <nav class="crumbs" aria-label="{{ i18n "nav_crumbs" }}"><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a><span>/</span><span>{{ $m.title }}</span></nav>
   <h1>{{ $m.title }}</h1>
   {{ with $m.summary }}<p class="sub">{{ . }}</p>{{ end }}
 </div></div>
 <div class="wrap list-page">
   {{- $s := partial "series.html" . }}
   {{- with $s.series }}
-  <div><div class="sec-head"><div><p class="eyebrow">按顺序读</p><h2>{{ (index hugo.Data.docs.series (index . 0).meta.series).title | default "系列" }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
+  <div><div class="sec-head"><div><p class="eyebrow">{{ i18n "in_order" }}</p><h2>{{ partial "series-title.html" . }}</h2></div><span class="meta">{{ i18n "post_count" (len .) }}</span></div>
   {{ partial "series-list.html" . }}</div>
   {{- end }}
   {{- with $s.other }}
-  <div><div class="sec-head"><div><p class="eyebrow">{{ if $s.series }}专题{{ else }}全部{{ end }}</p><h2>{{ if $s.series }}扩展指南{{ else }}文章{{ end }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
+  <div><div class="sec-head"><div><p class="eyebrow">{{ if $s.series }}{{ i18n "topics_eyebrow" }}{{ else }}{{ i18n "all" }}{{ end }}</p><h2>{{ if $s.series }}{{ i18n "topics_title" }}{{ else }}{{ i18n "posts" }}{{ end }}</h2></div><span class="meta">{{ i18n "post_count" (len .) }}</span></div>
   {{ partial "topics.html" . }}</div>
   {{- end }}
-  {{- if not .RegularPagesRecursive }}<p class="empty">这里还没有文章。</p>{{ end }}
+  {{- if not .RegularPagesRecursive }}<p class="empty">{{ i18n "empty_section" }}</p>{{ end }}
 </div>
 {{ end }}

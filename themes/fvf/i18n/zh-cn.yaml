@@ -1,0 +1,95 @@
+skip: 跳到正文
+nav_site: 站点导航
+nav_footer: 页脚
+nav_crumbs: 位置
+home: 首页
+home_label: "{{ . }} 社区首页"
+badge: 社区
+theme_toggle: 切换深浅色
+download: 下载镜像 →
+menu_open: 打开菜单
+menu_close: 关闭菜单
+lang_switch: 切换语言
+reading_time: "约 {{ .Count }} 分钟"
+post_count: "{{ .Count }} 篇"
+discuss: 💬 讨论
+toc: 本页目录
+pager_label: 上一篇和下一篇
+prev: 上一篇
+next: 下一篇
+first_post: 这是第一篇
+last_post: 已经是最后一篇
+edit_page: 在 GitHub 编辑此页 ↗
+series: 系列
+in_order: 按顺序读
+topics_eyebrow: 专题
+topics_title: 扩展指南
+all: 全部
+posts: 文章
+empty_section: 这里还没有文章。
+search_label: 搜索文章
+search_placeholder: 搜索文章，如 mock、kojira、builder
+search_empty: 没有标题或摘要含这个词的文章，换个词试试。
+hero_tail: 社区
+hero_sub: 文档、讨论和交流群
+hero_lede: FVF 搭 Koji 构建农场、移植 Fedora 到 RISC-V 的文档都在这里。看不懂就在文章下面留言，或者进 Telegram 群一起聊。
+cta_join: 加入 Telegram 群
+paths_label: 入口
+path_docs: 开发文档
+path_docs_text: Koji 构建系统、mock、builder 部署
+path_images: 下载镜像
+path_images_text: 按板卡挑 Fedora RISC-V 镜像
+path_tg: Telegram 群
+path_tg_text: t.me/fedorariscv，有问题直接问
+path_submit: 投稿
+path_submit_text: 教程、踩坑记录，提 PR 就能发
+latest_eyebrow: 最近更新
+latest_title: 新文章
+docs_in_order: 开发文档 · 按顺序读
+docs_topics: 开发文档 · 专题
+tg_panel: Telegram 群
+tg_panel_text: "{{ . }}，有问题直接问，板卡适配、编包、刷机都能聊。"
+tg_join: 加入 t.me/fedorariscv ↗
+tags: 标签
+related: 相关站点
+rel_web: FVF 官网
+rel_images: 镜像下载
+rel_koji: openKoji 构建系统
+rel_stats: 编包统计
+submit: 投稿
+submit_before: 写了教程或踩坑记录，可以投到站点仓库
+submit_after: ，Markdown 一篇一个文件，提 PR 即可。
+comments: 讨论
+comments_before: 评论存放在
+comments_after: ，用 GitHub 账号登录即可留言
+comments_noscript: 评论区需要开启 JavaScript。也可以直接去 GitHub Discussions 留言。
+footer_web: 官网
+footer_images: 镜像
+footer_license: 文档内容按各仓库 LICENSE 发布
+nf_title: 这个页面不存在
+nf_text: 可能是链接写错了，或者文章换了位置。
+nf_home: 回首页
+nf_all: 看全部文章
+archive_sub: 按分类浏览全部文章
+category: 分类
+community_sub: 用 Fedora RISC-V 遇到问题、想参与编包或板卡适配，选一个顺手的地方找我们
+g_main: 主群
+g_tg_text: 刷机、装软件、板卡适配、编包问题都在这里问，维护者都在群里。
+copy_link: 复制链接
+open_tg: 打开 Telegram 加入 ↗
+g_disc_title: 公开问答区
+g_disc_text: 问题和答案能被搜索到，适合发详细的报错和日志。站内每篇文章的评论也在这里。
+open_disc: 打开 Discussions ↗
+g_mail_kind: 邮件
+g_mail_title: 合作与板卡适配
+g_mail_text: 厂商送测、合作或不方便公开的问题，发邮件给我们。
+copy_addr: 复制地址
+rules_title: 提问前看一眼
+rule_1: 写清楚板卡型号、镜像版本（如 Fedora 42 / 下载日期）和你做了什么
+rule_2: 报错贴文字，不要只发截图；长日志贴到 Discussions 或 paste 站
+rule_3: 先搜一下站内文章和 Discussions，常见问题多半已经有人问过
+tags_sub: 按标签浏览文章
+copy: 复制
+translation_notice: 本文由中文原文机器翻译，以中文版为准。
+translation_stale: 中文原文在翻译之后改过，这篇译文可能已经过时。
+original: 中文原文

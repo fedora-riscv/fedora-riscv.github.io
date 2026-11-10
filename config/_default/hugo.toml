@@ -1,6 +1,6 @@
 baseURL = 'https://blog.fedoravforce.com/'
-locale = 'zh-CN'
 defaultContentLanguage = 'zh-cn'
+defaultContentLanguageInSubdir = false
 hasCJKLanguage = true
 title = 'Fedora-V Force'
 theme = 'fvf'
@@ -32,8 +32,6 @@ noClasses = false
 guessSyntax = false
 
 [params]
-subtitle = '哆啦V盟'
-description = 'Fedora-V Force（哆啦V盟）社区站：Fedora on RISC-V 的开发文档、讨论和交流群。'
 author = 'Fedora-V Force'
 github = 'https://github.com/fedora-riscv'
 siteRepo = 'https://github.com/fedora-riscv/fedora-riscv.github.io'
@@ -53,40 +51,5 @@ repo = 'fedora-riscv/Discussions'
 repoId = 'R_kgDOHBir1Q'
 category = 'Blog Comments'
 categoryId = 'DIC_kwDOHBir1c4DK0BR'
-mapping = 'pathname'
-lang = 'zh-CN'
-
-[[menus.main]]
-name = '首页'
-pageRef = '/'
-weight = 1
-
-[[menus.main]]
-name = '开发文档'
-pageRef = '/fedora-riscv-devel-docs'
-weight = 2
-
-[[menus.main]]
-name = '交流群'
-pageRef = '/community'
-weight = 3
-
-[[menus.main]]
-name = '全部文章'
-pageRef = '/archive'
-weight = 4
-
-[[menus.main]]
-name = '标签'
-pageRef = '/tags'
-weight = 5
-
-[[menus.main]]
-name = 'GitHub'
-url = 'https://github.com/fedora-riscv'
-weight = 6
-
-[[menus.main]]
-name = '官网'
-url = 'https://www.fedoravforce.org/'
-weight = 7
+# Threads are keyed by the Chinese page's path, so both languages share one.
+mapping = 'specific'

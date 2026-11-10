@@ -1,0 +1,97 @@
+skip: Skip to content
+nav_site: Site navigation
+nav_footer: Footer
+nav_crumbs: Breadcrumb
+home: Home
+home_label: "{{ . }} community home"
+badge: Community
+theme_toggle: Toggle dark mode
+download: Download images →
+menu_open: Open menu
+menu_close: Close menu
+lang_switch: Switch language
+reading_time: "{{ .Count }} min read"
+post_count:
+  one: "{{ .Count }} post"
+  other: "{{ .Count }} posts"
+discuss: 💬 Discussion
+toc: On this page
+pager_label: Previous and next
+prev: Previous
+next: Next
+first_post: This is the first one
+last_post: This is the last one
+edit_page: Edit this page on GitHub ↗
+series: Series
+in_order: Read in order
+topics_eyebrow: Topics
+topics_title: More guides
+all: All
+posts: Posts
+empty_section: No posts here yet.
+search_label: Search posts
+search_placeholder: Search posts, e.g. mock, kojira, builder
+search_empty: No post title or summary contains that. Try another word.
+hero_tail: Community
+hero_sub: Docs, discussion and chat
+hero_lede: How FVF runs a Koji build farm and ports Fedora to RISC-V. Stuck on something? Leave a comment under the post or ask in the Telegram group.
+cta_join: Join the Telegram group
+paths_label: Start here
+path_docs: Developer docs
+path_docs_text: The Koji build system, mock, deploying builders
+path_images: Download images
+path_images_text: Pick a Fedora RISC-V image for your board
+path_tg: Telegram group
+path_tg_text: t.me/fedorariscv, ask anything
+path_submit: Contribute
+path_submit_text: Tutorials and write-ups, sent as a PR
+latest_eyebrow: Recently updated
+latest_title: New posts
+docs_in_order: Developer docs · Read in order
+docs_topics: Developer docs · Topics
+tg_panel: Telegram group
+tg_panel_text: "{{ . }}. Ask about boards, packaging, flashing, anything."
+tg_join: Join t.me/fedorariscv ↗
+tags: Tags
+related: Related sites
+rel_web: FVF website
+rel_images: Image downloads
+rel_koji: openKoji build system
+rel_stats: Build statistics
+submit: Contribute
+submit_before: Wrote a tutorial or a write-up? Send it to the site repository
+submit_after: as one Markdown file per post in a pull request.
+comments: Discussion
+comments_before: Comments are stored in
+comments_after: . Sign in with GitHub to post.
+comments_noscript: Comments need JavaScript. You can also post directly on GitHub Discussions.
+footer_web: Website
+footer_images: Images
+footer_license: Content is published under each repository's license
+nf_title: This page doesn't exist
+nf_text: The link may be wrong, or the post has moved.
+nf_home: Go home
+nf_all: All posts
+archive_sub: Every post, by category
+category: Category
+community_sub: Stuck with Fedora RISC-V, or want to help with packaging or board support? Pick whichever place suits you.
+g_main: Main group
+g_tg_text: Flashing, installing software, board support, packaging. The maintainers are all in the group.
+copy_link: Copy link
+open_tg: Open in Telegram ↗
+g_disc_title: Public Q&A
+g_disc_text: Questions and answers stay searchable, so it suits detailed errors and logs. Comments on every post here live there too.
+open_disc: Open Discussions ↗
+g_mail_kind: Email
+g_mail_title: Partnerships and board support
+g_mail_text: Vendor sample boards, partnerships, or anything you'd rather not post publicly.
+copy_addr: Copy address
+rules_title: Before you ask
+rule_1: Say which board, which image (e.g. Fedora 42 / download date) and what you did
+rule_2: Paste errors as text, not only screenshots; put long logs on Discussions or a paste site
+rule_3: Search the posts and Discussions first; common questions have usually been asked
+tags_sub: Browse posts by tag
+copy: Copy
+translation_notice: Machine translated from the Chinese original. The Chinese version is authoritative.
+translation_stale: The Chinese original changed after this was translated, so this translation may be out of date.
+original: Chinese original

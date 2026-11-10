@@ -1,0 +1,2 @@
+{{- /* Title of the series the first item belongs to. Input: slice from series.html. */ -}}
+{{- $t := i18n "series" }}{{ with index . 0 }}{{ with .meta.seriesTitle }}{{ $t = . }}{{ end }}{{ end }}{{ return $t }}

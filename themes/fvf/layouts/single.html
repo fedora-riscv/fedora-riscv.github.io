@@ -6,53 +6,64 @@
 {{- if eq $sec site.Home }}{{ $s = dict "series" slice "other" slice }}{{ end }}
 {{- $all := $s.series | append $s.other }}
 {{- $pagerList := $s.series | append (sort $s.other "page.Date" "asc") }}
-{{- $seriesTitle := "" }}{{ with $m.series }}{{ $seriesTitle = (index hugo.Data.docs.series .).title | default "" }}{{ end }}
 {{- $idx := -1 }}{{ range $i, $e := $pagerList }}{{ if eq $e.page $ }}{{ $idx = $i }}{{ end }}{{ end }}
 {{- $comments := and site.Params.giscus.repoId (ne .Params.comments false) }}
+{{- /* Machine translations: link the original and flag it when the original has changed since. */ -}}
+{{- $orig := "" }}{{ $stale := false }}
+{{- if .Params.translation }}
+  {{- range .Translations }}{{ if eq .Language.Lang "zh-cn" }}{{ $orig = . }}{{ end }}{{ end }}
+  {{- with $orig }}
+    {{- $hash := md5 .RawContent }}
+    {{- if ne $.Params.sourceHash $hash }}{{ $stale = true }}{{ warnf "translation out of date: %s (sourceHash %q, original is now %q)" $.File.Path $.Params.sourceHash $hash }}{{ end }}
+  {{- end }}
+{{- end }}
 <div class="doc-head"><div class="wrap">
-  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span>{{ if ne $sec .Site.Home }}<a href="{{ $sec.RelPermalink }}">{{ $secMeta.title }}</a><span>/</span>{{ end }}<span>{{ with $m.n }}{{ $seriesTitle }} {{ . }}{{ else }}{{ $m.title }}{{ end }}</span></nav>
-  {{ with $m.n }}<span class="step">{{ $seriesTitle }} · {{ . }} / {{ printf "%02d" (len $s.series) }}</span>{{ end }}
+  <nav class="crumbs" aria-label="{{ i18n "nav_crumbs" }}"><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a><span>/</span>{{ if ne $sec site.Home }}<a href="{{ $sec.RelPermalink }}">{{ $secMeta.title }}</a><span>/</span>{{ end }}<span>{{ with $m.n }}{{ $m.seriesTitle }} {{ . }}{{ else }}{{ $m.title }}{{ end }}</span></nav>
+  {{ with $m.n }}<span class="step">{{ $m.seriesTitle }} · {{ . }} / {{ printf "%02d" (len $s.series) }}</span>{{ end }}
   <h1>{{ $m.title }}</h1>
   {{- with $m.subtitle }}{{ if ne (lower (replace . " " "")) (lower (replace $m.title " " "")) }}<p class="sub">{{ . }}</p>{{ end }}{{ end }}
   <div class="doc-meta">
     {{ if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>{{ end }}
-    <span>约 {{ .ReadingTime }} 分钟</span>
+    <span>{{ i18n "reading_time" .ReadingTime }}</span>
     {{ range .GetTerms "tags" }}<a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
-    {{ if $comments }}<a class="to-c" href="#comments">💬 讨论</a>{{ end }}
+    {{ if $comments }}<a class="to-c" href="#comments">{{ i18n "discuss" }}</a>{{ end }}
   </div>
 </div></div>
 {{- $hasRail := gt (len $all) 1 }}
 <div class="wrap doc{{ if not $hasRail }} no-rail{{ end }}">
   {{- if $hasRail }}
-  <nav class="rail" aria-label="{{ $secMeta.title }}目录">
-    {{ with $s.series }}<h4>{{ $seriesTitle | default (index hugo.Data.docs.series (index . 0).meta.series).title }}</h4>
+  <nav class="rail" aria-label="{{ $secMeta.title }}">
+    {{ with $s.series }}<h4>{{ partial "series-title.html" . }}</h4>
     <ol>{{ range . }}<li><a href="{{ .page.RelPermalink }}"{{ if eq .page $ }} aria-current="page"{{ end }}><i>{{ .meta.n }}</i><span>{{ .meta.title }}</span></a></li>{{ end }}</ol>{{ end }}
-    {{ with $s.other }}<h4>{{ if $s.series }}扩展指南{{ else }}{{ $secMeta.title }}{{ end }}</h4>
+    {{ with $s.other }}<h4>{{ if $s.series }}{{ i18n "topics_title" }}{{ else }}{{ $secMeta.title }}{{ end }}</h4>
     <ol>{{ range . }}<li><a href="{{ .page.RelPermalink }}"{{ if eq .page $ }} aria-current="page"{{ end }}><i>·</i><span>{{ .meta.title }}</span></a></li>{{ end }}</ol>{{ end }}
   </nav>
   {{- end }}
   <article class="article">
+    {{- with $orig }}
+    <p class="notice{{ if $stale }} stale{{ end }}">{{ if $stale }}{{ i18n "translation_stale" }}{{ else }}{{ i18n "translation_notice" }}{{ end }} <a href="{{ .RelPermalink }}" hreflang="zh-CN" lang="zh-CN">{{ i18n "original" }} →</a></p>
+    {{- end }}
     {{- $toc := .TableOfContents }}
     {{- $hasToc := gt (len (findRE `<li>` $toc)) 1 }}
-    {{ if $hasToc }}<details class="toc-m"><summary>本页目录</summary>{{ $toc | replaceRE `<nav id="TableOfContents">` "<nav>" | safeHTML }}</details>{{ end }}
+    {{ if $hasToc }}<details class="toc-m"><summary>{{ i18n "toc" }}</summary>{{ $toc | replaceRE `<nav id="TableOfContents">` "<nav>" | safeHTML }}</details>{{ end }}
     <div class="prose" id="prose">
       {{ .Content | replaceRE `(?s)<div align=['"]?center['"]?\s*>\s*<font size=['"]?20['"]?>.*?</font>\s*</div>` "" | replaceRE `<p>\[TOC\]</p>` "" | safeHTML }}
     </div>
     {{- if ge $idx 0 }}
-    <nav class="pager" aria-label="上一篇和下一篇">
+    <nav class="pager" aria-label="{{ i18n "pager_label" }}">
       {{- if gt $idx 0 }}{{ $p := index $pagerList (sub $idx 1) }}
-      <a href="{{ $p.page.RelPermalink }}"><small>上一篇{{ with $p.meta.n }} · {{ . }}{{ end }}</small><b>← {{ $p.meta.title }}</b></a>
-      {{- else }}<div class="none"><small>上一篇</small><b>这是第一篇</b></div>{{ end }}
+      <a href="{{ $p.page.RelPermalink }}"><small>{{ i18n "prev" }}{{ with $p.meta.n }} · {{ . }}{{ end }}</small><b>← {{ $p.meta.title }}</b></a>
+      {{- else }}<div class="none"><small>{{ i18n "prev" }}</small><b>{{ i18n "first_post" }}</b></div>{{ end }}
       {{- if lt $idx (sub (len $pagerList) 1) }}{{ $n := index $pagerList (add $idx 1) }}
-      <a class="next" href="{{ $n.page.RelPermalink }}"><small>下一篇{{ with $n.meta.n }} · {{ . }}{{ end }}</small><b>{{ $n.meta.title }} →</b></a>
-      {{- else }}<div class="next none"><small>下一篇</small><b>已经是最后一篇</b></div>{{ end }}
+      <a class="next" href="{{ $n.page.RelPermalink }}"><small>{{ i18n "next" }}{{ with $n.meta.n }} · {{ . }}{{ end }}</small><b>{{ $n.meta.title }} →</b></a>
+      {{- else }}<div class="next none"><small>{{ i18n "next" }}</small><b>{{ i18n "last_post" }}</b></div>{{ end }}
     </nav>
     {{- end }}
     {{ if $comments }}{{ partial "comments.html" . }}{{ end }}
   </article>
-  <aside class="toc-side" aria-label="本页目录">
-    {{ if $hasToc }}<h4>本页目录</h4>{{ $toc }}{{ end }}
-    {{ with $m.edit }}<a class="edit" href="{{ . }}">在 GitHub 编辑此页 ↗</a>{{ end }}
+  <aside class="toc-side" aria-label="{{ i18n "toc" }}">
+    {{ if $hasToc }}<h4>{{ i18n "toc" }}</h4>{{ $toc }}{{ end }}
+    {{ with $m.edit }}<a class="edit" href="{{ . }}">{{ i18n "edit_page" }}</a>{{ end }}
   </aside>
 </div>
 {{ end }}

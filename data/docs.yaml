@@ -9,18 +9,22 @@
 #   title   display title (front matter titles carry a "01-" prefix)
 #   summary one or two sentences for lists (front matter summaries are empty)
 #   kind    optional label shown next to the reading time
+#   *_en    English versions of title / summary / description / kind
 # Pages without an entry still render, with their front matter title and an
 # excerpt from the body.
 
 sections:
   fedora-riscv-devel-docs:
     title: 开发文档
+    title_en: Developer docs
     description: FVF 搭 Koji 构建农场、移植 Fedora 到 RISC-V 的开发文档。
+    description_en: How FVF runs its Koji build farm and ports Fedora to RISC-V.
     edit: https://github.com/fedora-riscv/Fedora_riscv_devel_docs/blob/main/
 
 series:
   koji:
     title: Koji 系列
+    title_en: The Koji series
 
 pages:
   01-Koji基础知识:
@@ -28,38 +32,58 @@ pages:
     n: "01"
     title: Koji 基础知识
     summary: Koji 的设计特性、Package / Build / RPM / NVR 等术语，hub、kojid、kojira 各组件分工，以及 tag 与 target 的继承关系。
+    title_en: Koji basics
+    summary_en: Koji design goals, the Package / Build / RPM / NVR terminology, what the hub, kojid and kojira each do, and how tags and targets inherit.
   02-Koji使用简介:
     series: koji
     n: "02"
     title: Koji 使用简介
     summary: 用 koji 命令行连 hub、查软件包与最近任务、管理软件包并发起一次 build；Web 界面怎么看。
+    title_en: Using Koji
+    summary_en: Connect the koji CLI to the hub, list packages and recent tasks, manage packages and start a build; a tour of the web UI.
   03-Koji部署指南-kojihub部署:
     series: koji
     n: "03"
     title: kojihub 部署
     kind: 部署
+    kind_en: Deploy
     summary: 准备 SSL 证书与 PostgreSQL，配置 koji-hub 和 koji-web，搭起整个构建系统的中心。
+    title_en: Deploying kojihub
+    summary_en: Prepare SSL certificates and PostgreSQL, configure koji-hub and koji-web, and stand up the centre of the build system.
   04-Koji部署指南-koji仓库部署及bootstrap:
     series: koji
     n: "04"
     title: koji 仓库部署及 bootstrap
     kind: 部署
+    kind_en: Deploy
     summary: 创建 tag、build tag 与 build target，导入软件包并生成 repodata；用外部仓库 bootstrap 新环境。
+    title_en: Koji repositories and bootstrap
+    summary_en: Create tags, build tags and build targets, import packages and generate repodata; bootstrap a new environment from external repositories.
   05-Koji部署指南-mock辅助编译及仓库测试:
     series: koji
     n: "05"
     title: mock 辅助编译及仓库测试
     kind: 部署
+    kind_en: Deploy
     summary: 用 mock 搭干净的 chroot 替代 rpmbuild，逐项解读配置文件，并用它验证仓库可用。
+    title_en: Building with mock and testing repositories
+    summary_en: Use mock to build in a clean chroot instead of rpmbuild, walk through its configuration, and use it to check that a repository works.
   06-Koji部署指南-riscv-builders批量部署指南:
     series: koji
     n: "06"
     title: RISC-V builders 批量部署
     kind: 部署
+    kind_en: Deploy
     summary: builder 编号、证书 CN 与镜像命名规则，hub 端登记 builder，脚本化批量上线 RISC-V 构建机。
+    title_en: Deploying RISC-V builders in bulk
+    summary_en: Naming rules for builder numbers, certificate CNs and images, registering builders on the hub, and scripting the rollout of RISC-V build machines.
   ext_fedora_mbs:
     title: Fedora 模块构建服务（MBS）
     summary: Modularity 的模块流与安装配置文件，本地构建模块，部署 MBS 服务。
+    title_en: Fedora Module Build Service (MBS)
+    summary_en: Module streams and install profiles in Modularity, building modules locally, and deploying MBS.
   fedora-riscv-ros2-complie:
     title: Fedora ROS2 编译指南
     summary: 依赖清单、colcon 编译流程，以及 patch 失败、atomic 链接错误等常见坑。
+    title_en: Building ROS 2 on Fedora
+    summary_en: Dependencies, the colcon build, and common failures such as patches not applying and atomic link errors.

@@ -1,8 +1,8 @@
 {{ define "main" }}
 <div class="doc-head"><div class="wrap">
-  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><a href="{{ .Parent.RelPermalink }}">标签</a><span>/</span><span>{{ .Title }}</span></nav>
+  <nav class="crumbs" aria-label="{{ i18n "nav_crumbs" }}"><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a><span>/</span><a href="{{ .Parent.RelPermalink }}">{{ i18n "tags" }}</a><span>/</span><span>{{ .Title }}</span></nav>
   <h1 class="big-title">{{ .Title }}</h1>
-  <p class="sub">{{ len .Pages }} 篇文章</p>
+  <p class="sub">{{ i18n "post_count" (len .Pages) }}</p>
 </div></div>
 <div class="wrap list-page">
   <ul class="linklist">
