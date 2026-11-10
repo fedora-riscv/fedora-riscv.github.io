@@ -114,7 +114,7 @@ The output shows not only the latest built version of the package but also which
   
   - A tag is a label used to manage imported PACKAGES; tags can be inherited
   
-  - A build tag is a label marking what is needed when building software; a build tag generally inherits from a tag
+  - A build tag is the tag used when building software; a build tag generally inherits from a tag
     
     ```shell
     koji add-tag nk6.0-mips64el

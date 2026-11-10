@@ -163,8 +163,19 @@ document.addEventListener('keydown', e => {
   const q = document.getElementById('q');
   if (q && e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) { e.preventDefault(); q.focus() }
 });
-let ticking = false;
-addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; spy() }) } }, { passive: true });
+// Scroll position per history entry: kept in memory for back/forward within this
+// document, and mirrored (debounced) into history.state so a reload can restore it.
+const positions = new Map();
+const newKey = () => Math.random().toString(36).slice(2);
+let entryKey = history.state?.key || newKey();
+let ticking = false, saveTimer = 0;
+addEventListener('scroll', () => {
+  if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; spy() }) }
+  positions.set(entryKey, scrollY);
+  // Keep this history entry's scroll position current, for back/forward and reload.
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { try { history.replaceState({ ...(history.state || {}), key: entryKey, y: scrollY }, '') } catch (e) { /* rate limited */ } }, 150);
+}, { passive: true });
 
 /* ---------- PJAX ---------- */
 const progress = document.getElementById('progress');
@@ -184,7 +195,10 @@ const pjaxable = (a, e) => {
   return url;
 };
 
-const saveScroll = () => history.replaceState({ ...(history.state || {}), y: scrollY }, '');
+const saveScroll = () => { clearTimeout(saveTimer); positions.set(entryKey, scrollY); history.replaceState({ ...(history.state || {}), key: entryKey, y: scrollY }, '') };
+// Programmatic jumps skip the page's smooth-scroll CSS.
+const jump = y => scrollTo({ top: y, left: 0, behavior: 'instant' });
+const jumpTo = el => el.scrollIntoView({ behavior: 'instant' });
 
 async function navigate(url, { push = true, y = 0 } = {}) {
   inflight?.abort();
@@ -193,10 +207,15 @@ async function navigate(url, { push = true, y = 0 } = {}) {
   const timer = setTimeout(() => progress?.classList.add('run'), 120);
   try {
     const res = await fetch(url.href, { signal: ctrl.signal, headers: { Accept: 'text/html' } });
-    if (!res.ok || !(res.headers.get('content-type') || '').includes('text/html')) throw new Error('not html');
+    // A 404 page is a normal page here; anything else unusual gets a real navigation.
+    if (!(res.ok || res.status === 404) || !(res.headers.get('content-type') || '').includes('text/html')) throw new Error('not html');
+    const finalUrl = new URL(res.url || url.href);
+    if (finalUrl.origin !== location.origin) throw new Error('redirected off site');
+    finalUrl.hash = url.hash;
     const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
     if (assetKey(doc) !== pageAssets || !doc.querySelector('main')) throw new Error('assets changed');
     if (ctrl.signal.aborted) return;
+    let target = null;
     const apply = () => {
       document.title = doc.title;
       root.lang = doc.documentElement.lang;
@@ -210,20 +229,22 @@ async function navigate(url, { push = true, y = 0 } = {}) {
       document.querySelector('footer').replaceWith(document.adoptNode(doc.querySelector('footer')));
       const skip = document.querySelector('.skip'), nextSkip = doc.querySelector('.skip');
       if (skip && nextSkip) skip.textContent = nextSkip.textContent;
-      if (push) history.pushState({ y: 0 }, '', url.href);
-      currentPage = url.pathname + url.search;
-      const target = url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)));
-      if (target) target.scrollIntoView(); else scrollTo(0, y);
+      if (push) { entryKey = newKey(); history.pushState({ key: entryKey, y: 0 }, '', finalUrl.href) }
+      currentPage = finalUrl.pathname + finalUrl.search;
+      target = url.hash && document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (target) jumpTo(target); else jump(y);
       initPage();
     };
     if (document.startViewTransition && !reduceMotion.matches) await document.startViewTransition(apply).updateCallbackDone;
     else apply();
-    document.getElementById('main').focus({ preventScroll: true });
+    const focusEl = target || document.getElementById('main');
+    if (target && !target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    focusEl.focus({ preventScroll: true });
     const live = document.getElementById('announce');
     if (live) live.textContent = doc.title;
   } catch (err) {
     if (err.name === 'AbortError') return;
-    location.assign(url.href);
+    if (push) location.assign(url.href); else location.reload();
   } finally {
     clearTimeout(timer);
     if (inflight === ctrl) {
@@ -238,7 +259,6 @@ async function navigate(url, { push = true, y = 0 } = {}) {
 
 if (window.fetch && window.DOMParser && history.pushState) {
   history.scrollRestoration = 'manual';
-  history.replaceState({ ...(history.state || {}), y: scrollY }, '');
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href]');
     const url = pjaxable(a, e);
@@ -249,11 +269,27 @@ if (window.fetch && window.DOMParser && history.pushState) {
     navigate(url);
   });
   addEventListener('popstate', e => {
-    // Back/forward between #anchors of the same page: let the browser scroll.
-    if (location.pathname + location.search === currentPage) return;
-    navigate(new URL(location.href), { push: false, y: e.state?.y || 0 });
+    clearTimeout(saveTimer); // a pending save belongs to the entry we just left
+    entryKey = e.state?.key || newKey();
+    const y = positions.get(entryKey) ?? e.state?.y ?? 0;
+    // Back/forward between #anchors of the same page: scroll there ourselves
+    // (scroll restoration is manual).
+    if (location.pathname + location.search === currentPage) {
+      const el = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (el) jumpTo(el); else jump(y);
+      return;
+    }
+    navigate(new URL(location.href), { push: false, y });
   });
   addEventListener('pagehide', saveScroll);
+  try { history.replaceState({ ...(history.state || {}), key: entryKey }, '') } catch (e) { /* ignore */ }
+  // Reload and back/forward from another site: restore this entry's position.
+  const navType = performance.getEntriesByType?.('navigation')[0]?.type;
+  const savedY = history.state?.y;
+  if (savedY && !location.hash && (navType === 'reload' || navType === 'back_forward')) {
+    const restore = () => jump(savedY);
+    if (document.readyState === 'complete') restore(); else addEventListener('load', restore, { once: true });
+  }
 }
 
 initPage();
