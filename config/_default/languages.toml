@@ -1,0 +1,21 @@
+[zh-cn]
+label = '中文'
+weight = 1
+contentDir = 'content'
+locale = 'zh-CN'
+title = 'Fedora-V Force'
+[zh-cn.params]
+subtitle = '哆啦V盟'
+description = 'Fedora-V Force（哆啦V盟）社区站：Fedora on RISC-V 的开发文档、讨论和交流群。'
+giscusLang = 'zh-CN'
+
+[en]
+label = 'English'
+weight = 2
+contentDir = 'content-en'
+locale = 'en-US'
+title = 'Fedora-V Force'
+[en.params]
+subtitle = 'Fedora on RISC-V'
+description = 'Fedora-V Force community site: developer docs, discussion and chat for Fedora on RISC-V.'
+giscusLang = 'en'

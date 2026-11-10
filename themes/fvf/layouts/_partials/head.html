@@ -13,6 +13,9 @@
 <meta property="og:url" content="{{ .Permalink }}">
 <meta name="theme-color" content="#070D22">
 <link rel="icon" href="{{ "favicon.ico" | relURL }}">
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.Locale }}" href="{{ .Permalink }}">
+{{- end }}
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">{{ end }}
 <link rel="preload" href="{{ "fonts/ArchivoItalic-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/RedHatText-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>

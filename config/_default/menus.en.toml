@@ -1,0 +1,34 @@
+[[main]]
+name = 'Home'
+pageRef = '/'
+weight = 1
+
+[[main]]
+name = 'Docs'
+pageRef = '/fedora-riscv-devel-docs'
+weight = 2
+
+[[main]]
+name = 'Community'
+pageRef = '/community'
+weight = 3
+
+[[main]]
+name = 'All posts'
+pageRef = '/archive'
+weight = 4
+
+[[main]]
+name = 'Tags'
+pageRef = '/tags'
+weight = 5
+
+[[main]]
+name = 'GitHub'
+url = 'https://github.com/fedora-riscv'
+weight = 6
+
+[[main]]
+name = 'Website'
+url = 'https://www.fedoravforce.org/'
+weight = 7

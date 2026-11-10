@@ -1,13 +1,13 @@
 {{ define "main" }}
 <div class="doc-head"><div class="wrap">
-  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>{{ .Title }}</span></nav>
+  <nav class="crumbs" aria-label="{{ i18n "nav_crumbs" }}"><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a><span>/</span><span>{{ .Title }}</span></nav>
   <h1 class="big-title">All posts</h1>
-  <p class="sub">按分类浏览全部文章</p>
+  <p class="sub">{{ i18n "archive_sub" }}</p>
 </div></div>
 <div class="wrap list-page">
   {{- range site.Sections }}{{ $m := partial "meta.html" . }}{{ $secAll := partial "series.html" . }}{{ with .RegularPagesRecursive }}
   <div>
-    <div class="sec-head"><div><p class="eyebrow">分类</p><h2>{{ $m.title }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
+    <div class="sec-head"><div><p class="eyebrow">{{ i18n "category" }}</p><h2>{{ $m.title }}</h2></div><span class="meta">{{ i18n "post_count" (len .) }}</span></div>
     <ul class="linklist">
     {{- range $secAll.series | append $secAll.other }}
       <li><a href="{{ .page.RelPermalink }}"><span>{{ with .meta.n }}<span class="cat">{{ . }}</span>{{ end }}{{ .meta.title }}</span><span>{{ .page.Date.Format "2006-01-02" }}</span></a></li>

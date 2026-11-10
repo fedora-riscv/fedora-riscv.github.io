@@ -1,10 +1,10 @@
 {{ define "main" }}
 <div class="doc-head"><div class="wrap">
-  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>标签</span></nav>
+  <nav class="crumbs" aria-label="{{ i18n "nav_crumbs" }}"><a href="{{ site.Home.RelPermalink }}">{{ i18n "home" }}</a><span>/</span><span>{{ i18n "tags" }}</span></nav>
   <h1 class="big-title">Tags</h1>
-  <p class="sub">按标签浏览文章</p>
+  <p class="sub">{{ i18n "tags_sub" }}</p>
 </div></div>
 <div class="wrap list-page">
-  <div class="tag-big">{{ range .Data.Terms.ByCount }}<a href="{{ .Page.RelPermalink }}"><strong>{{ .Page.Title }}</strong><span>{{ .Count }} 篇</span></a>{{ else }}<p class="empty">还没有标签。</p>{{ end }}</div>
+  <div class="tag-big">{{ range .Data.Terms.ByCount }}<a href="{{ .Page.RelPermalink }}"><strong>{{ .Page.Title }}</strong><span>{{ i18n "post_count" .Count }}</span></a>{{ else }}<p class="empty">{{ i18n "empty_section" }}</p>{{ end }}</div>
 </div>
 {{ end }}
