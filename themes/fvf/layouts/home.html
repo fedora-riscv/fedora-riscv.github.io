@@ -1,0 +1,52 @@
+{{ define "main" }}
+<section class="hero">
+  <canvas id="farm" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <p class="eyebrow">{{ site.Title }} · {{ site.Params.subtitle }} · 社区</p>
+    <h1>Fedora on RISC-<span class="v">V</span><span class="zh">文档、讨论和交流群</span></h1>
+    <p>FVF 搭 Koji 构建农场、移植 Fedora 到 RISC-V 的文档都在这里。看不懂就在文章下面留言，或者进 Telegram 群一起聊。</p>
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span class="sr">搜索文章</span>
+      <input id="q" type="search" placeholder="搜索文章，如 mock、kojira、builder" autocomplete="off">
+      <kbd aria-hidden="true">/</kbd>
+    </label>
+    <div class="cta-row"><a class="btn-lg gold" href="{{ site.Params.images }}">下载镜像 →</a><a class="btn-lg line" href="{{ site.Params.telegram }}">加入 Telegram 群</a></div>
+  </div>
+</section>
+{{- $docs := site.GetPage "/fedora-riscv-devel-docs" }}
+<div class="wrap">
+  <nav class="paths" aria-label="入口">
+    {{ with $docs }}<a class="path" href="{{ .RelPermalink }}"><b>开发文档</b><span>Koji 构建系统、mock、builder 部署</span></a>{{ end }}
+    <a class="path" href="{{ site.Params.images }}"><b>下载镜像</b><span>按板卡挑 Fedora RISC-V 镜像</span></a>
+    <a class="path" href="{{ site.Params.telegram }}"><b>Telegram 群</b><span>t.me/fedorariscv，有问题直接问</span></a>
+    <a class="path" href="{{ site.Params.siteRepo }}"><b>投稿</b><span>教程、踩坑记录，提 PR 就能发</span></a>
+  </nav>
+</div>
+<div class="wrap home-grid">
+  <div class="home-main" id="home-list">
+    {{- /* Sections other than the devel docs (tutorials, news, ...) appear once they have pages. */ -}}
+    {{- $latest := where (where site.RegularPages "Section" "!=" "fedora-riscv-devel-docs") "Section" "!=" "" }}
+    {{- with first 6 $latest }}
+    <div class="sec-head"><div><p class="eyebrow">最近更新</p><h2>新文章</h2></div></div>
+    <ul class="linklist" style="margin-bottom:56px">
+      {{- range . }}{{ $m := partial "meta.html" . }}
+      <li data-q="{{ $m.title }} {{ $m.summary }}"><a href="{{ .RelPermalink }}"><span><span class="cat">{{ (partial "meta.html" .CurrentSection).title }}</span>{{ $m.title }}</span><span>{{ .Date.Format "2006-01-02" }}</span></a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    {{- with $docs }}{{ $s := partial "series.html" . }}
+    {{- with $s.series }}
+    <div class="sec-head"><div><p class="eyebrow">开发文档 · 按顺序读</p><h2>{{ (index hugo.Data.docs.series (index . 0).meta.series).title | default "系列" }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
+    {{ partial "series-list.html" . }}
+    {{- end }}
+    {{- with $s.other }}
+    <div class="sec-head"><div><p class="eyebrow">开发文档 · 专题</p><h2>扩展指南</h2></div><span class="meta">{{ len . }} 篇</span></div>
+    {{ partial "topics.html" . }}
+    {{- end }}
+    {{- end }}
+    <p class="empty" id="q-empty" hidden>没有标题或摘要含这个词的文章，换个词试试。</p>
+  </div>
+  {{ partial "sidebar.html" . }}
+</div>
+{{ end }}

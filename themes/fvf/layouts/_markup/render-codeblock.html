@@ -1,0 +1,4 @@
+{{- $lang := .Type | default "text" }}
+<div class="term"><div class="bar"><span>{{ $lang }}</span><button type="button" data-copy-code>复制</button></div>
+{{- transform.Highlight (strings.TrimRight "\n" .Inner) $lang (dict "noClasses" false "lineNos" false) -}}
+</div>

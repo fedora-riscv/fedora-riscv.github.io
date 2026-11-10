@@ -1,0 +1,8 @@
+{{ define "main" }}
+<div class="wrap nf">
+  <strong>404</strong>
+  <h1 style="margin:0;font-size:28px">这个页面不存在</h1>
+  <p style="margin:0;color:var(--muted)">可能是链接写错了，或者文章换了位置。</p>
+  <div class="cta-row"><a class="btn-lg gold" href="{{ "/" | relURL }}">回首页</a><a class="btn-lg ink" href="{{ "archive/" | relURL }}">看全部文章</a></div>
+</div>
+{{ end }}

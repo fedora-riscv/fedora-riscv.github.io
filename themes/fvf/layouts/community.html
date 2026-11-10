@@ -1,0 +1,41 @@
+{{ define "main" }}
+<div class="doc-head"><div class="wrap">
+  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>{{ .Title }}</span></nav>
+  <h1 class="big-title">Join us</h1>
+  <p class="sub">用 Fedora RISC-V 遇到问题、想参与编包或板卡适配，选一个顺手的地方找我们</p>
+</div></div>
+<div class="wrap list-page">
+  <div class="groups">
+    <div class="group main">
+      <div class="g-top"><span class="g-kind">Telegram</span><span class="g-live">主群</span></div>
+      <h3>{{ site.Params.telegramName }}</h3>
+      <p>刷机、装软件、板卡适配、编包问题都在这里问，维护者都在群里。</p>
+      <div class="g-id"><code>{{ strings.TrimPrefix "https://" site.Params.telegram }}</code><button type="button" data-copy="{{ site.Params.telegram }}">复制链接</button></div>
+      <a class="btn-lg gold sm" href="{{ site.Params.telegram }}">打开 Telegram 加入 ↗</a>
+    </div>
+    <div class="group">
+      <div class="g-top"><span class="g-kind">GitHub Discussions</span></div>
+      <h3>公开问答区</h3>
+      <p>问题和答案能被搜索到，适合发详细的报错和日志。站内每篇文章的评论也在这里。</p>
+      <a class="btn-lg ink sm" href="{{ site.Params.discussions }}">打开 Discussions ↗</a>
+    </div>
+    {{- with site.Params.contact }}
+    <div class="group">
+      <div class="g-top"><span class="g-kind">邮件</span></div>
+      <h3>合作与板卡适配</h3>
+      <p>厂商送测、合作或不方便公开的问题，发邮件给我们。</p>
+      <div class="g-id"><code data-email-user="{{ .emailUser }}" data-email-domain="{{ .emailDomain }}">{{ .emailUser }} [at] {{ .emailDomain }}</code><button type="button" data-copy-email>复制地址</button></div>
+    </div>
+    {{- end }}
+  </div>
+  <div class="rules">
+    <h4>提问前看一眼</h4>
+    <ul>
+      <li>写清楚板卡型号、镜像版本（如 Fedora 42 / 下载日期）和你做了什么</li>
+      <li>报错贴文字，不要只发截图；长日志贴到 Discussions 或 paste 站</li>
+      <li>先搜一下站内文章和 Discussions，常见问题多半已经有人问过</li>
+    </ul>
+  </div>
+  {{ with .Content }}<div class="prose article">{{ . }}</div>{{ end }}
+</div>
+{{ end }}

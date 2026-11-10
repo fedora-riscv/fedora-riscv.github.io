@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="doc-head"><div class="wrap">
+  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><a href="{{ .Parent.RelPermalink }}">标签</a><span>/</span><span>{{ .Title }}</span></nav>
+  <h1 class="big-title">{{ .Title }}</h1>
+  <p class="sub">{{ len .Pages }} 篇文章</p>
+</div></div>
+<div class="wrap list-page">
+  <ul class="linklist">
+  {{- range .Pages }}{{ $m := partial "meta.html" . }}
+    <li><a href="{{ .RelPermalink }}"><span>{{ with $m.n }}<span class="cat">{{ . }}</span>{{ end }}{{ $m.title }}</span><span>{{ .Date.Format "2006-01-02" }}</span></a></li>
+  {{- end }}
+  </ul>
+</div>
+{{ end }}

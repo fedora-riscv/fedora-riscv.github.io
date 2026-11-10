@@ -1,31 +1,92 @@
-baseURL = 'https://fedora-riscv.github.io'
-languageCode = 'zh-CN'
-theme = 'diary'
+baseURL = 'https://blog.fedoravforce.com/'
+locale = 'zh-CN'
+defaultContentLanguage = 'zh-cn'
+hasCJKLanguage = true
 title = 'Fedora-V Force'
+theme = 'fvf'
+enableRobotsTXT = true
 
-ignoreFiles = ['README.md', 'LICENSE']
+ignoreFiles = ['README\.md$', 'LICENSE$']
+
+[taxonomies]
+tag = 'tags'
+
+[outputs]
+home = ['html', 'rss']
+section = ['html', 'rss']
+taxonomy = ['html']
+term = ['html', 'rss']
+
+[markup.goldmark.renderer]
+# The devel docs (a trusted, FVF-maintained submodule) use <br /> inside table
+# cells. The theme removes the legacy <div><font size='20'> heading wrapper.
+unsafe = true
+
+[markup.tableOfContents]
+startLevel = 1
+endLevel = 2
+ordered = false
+
+[markup.highlight]
+noClasses = false
+guessSyntax = false
 
 [params]
 subtitle = '哆啦V盟'
+description = 'Fedora-V Force（哆啦V盟）社区站：Fedora on RISC-V 的开发文档、讨论和交流群。'
+author = 'Fedora-V Force'
+github = 'https://github.com/fedora-riscv'
+siteRepo = 'https://github.com/fedora-riscv/fedora-riscv.github.io'
+website = 'https://www.fedoravforce.org/'
+images = 'https://images.fedoravforce.org/'
+telegram = 'https://t.me/fedorariscv'
+telegramName = 'Fedora RISC-V (Fedora-V Force)'
+discussions = 'https://github.com/fedora-riscv/Discussions/discussions'
 
-[menu]
+# Assembled by JavaScript so the address does not appear in the HTML source.
+[params.contact]
+emailUser = 'support'
+emailDomain = 'fedoravforce.com'
 
-[[menu.main]]
-url = "/"
-name = "Home"
-identifier = "home"
+[params.giscus]
+repo = 'fedora-riscv/Discussions'
+repoId = 'R_kgDOHBir1Q'
+category = 'Blog Comments'
+categoryId = 'DIC_kwDOHBir1c4DK0BR'
+mapping = 'pathname'
+lang = 'zh-CN'
+
+[[menus.main]]
+name = '首页'
+pageRef = '/'
 weight = 1
 
-[[menu.main]]
-url = "/tags"
-name = "Tags"
+[[menus.main]]
+name = '开发文档'
+pageRef = '/fedora-riscv-devel-docs'
+weight = 2
+
+[[menus.main]]
+name = '交流群'
+pageRef = '/community'
 weight = 3
 
-[[menu.main]]
-url = "/index.xml"
-name = "RSS Feed"
+[[menus.main]]
+name = '全部文章'
+pageRef = '/archive'
 weight = 4
 
-[[menu.main]]
-url = "/fedora-riscv-devel-docs"
-name = "Fedora-RISC-V Devel Docs"
+[[menus.main]]
+name = '标签'
+pageRef = '/tags'
+weight = 5
+
+[[menus.main]]
+name = 'GitHub'
+url = 'https://github.com/fedora-riscv'
+weight = 6
+
+[[menus.main]]
+name = '官网'
+url = 'https://www.fedoravforce.org/'
+weight = 7

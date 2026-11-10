@@ -1,0 +1,18 @@
+{{- /* Display metadata for a page: data/docs.yaml first, then front matter. Returns a dict. */ -}}
+{{- $key := "" }}{{ with .File }}{{ $key = .ContentBaseName }}{{ end }}
+{{- $d := index hugo.Data.docs.pages $key | default dict }}
+{{- $sec := index hugo.Data.docs.sections .Section | default dict }}
+{{- $title := .Title }}
+{{- if .IsSection }}{{ $title = $sec.title | default .Title }}{{ end }}
+{{- with $d.title }}{{ $title = . }}{{ end }}
+{{- $summary := strings.TrimSpace (.Params.summary | default "") }}
+{{- with $d.summary }}{{ $summary = . }}{{ end }}
+{{- if and (not $summary) .IsSection }}{{ $summary = $sec.description | default "" }}{{ end }}
+{{- if and (not $summary) .IsPage }}{{ $summary = .Plain | strings.TrimSpace | replaceRE `\s+` " " | replaceRE `^\[TOC\]\s*` "" | truncate 90 }}{{ end }}
+{{- $subtitle := "" }}
+{{- with findRESubmatch `<font[^>]*size=['"]?20['"]?[^>]*>([^<]+)</font>` .RawContent 1 }}{{ $subtitle = index (index . 0) 1 | strings.TrimSpace }}{{ end }}
+{{- with .Params.subtitle }}{{ $subtitle = . }}{{ end }}
+{{- $edit := "" }}
+{{- with .File }}{{ with $sec.edit }}{{ $edit = printf "%s%s" . (strings.TrimPrefix (printf "%s/" $.Section) $.File.Path) }}{{ end }}{{ end }}
+{{- if and (not $edit) .File }}{{ $edit = printf "%s/blob/main/content/%s" site.Params.siteRepo .File.Path }}{{ end }}
+{{- return dict "title" $title "summary" $summary "subtitle" $subtitle "n" ($d.n | default "") "series" ($d.series | default "") "kind" ($d.kind | default "") "edit" $edit }}

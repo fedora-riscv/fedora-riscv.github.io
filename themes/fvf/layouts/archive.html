@@ -1,0 +1,20 @@
+{{ define "main" }}
+<div class="doc-head"><div class="wrap">
+  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>{{ .Title }}</span></nav>
+  <h1 class="big-title">All posts</h1>
+  <p class="sub">按分类浏览全部文章</p>
+</div></div>
+<div class="wrap list-page">
+  {{- range site.Sections }}{{ $m := partial "meta.html" . }}{{ with .RegularPagesRecursive }}
+  <div>
+    <div class="sec-head"><div><p class="eyebrow">分类</p><h2>{{ $m.title }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
+    <ul class="linklist">
+    {{- $sec := partial "series.html" (index . 0).CurrentSection }}
+    {{- range $sec.series | append $sec.other }}
+      <li><a href="{{ .page.RelPermalink }}"><span>{{ with .meta.n }}<span class="cat">{{ . }}</span>{{ end }}{{ .meta.title }}</span><span>{{ .page.Date.Format "2006-01-02" }}</span></a></li>
+    {{- end }}
+    </ul>
+  </div>
+  {{- end }}{{ end }}
+</div>
+{{ end }}

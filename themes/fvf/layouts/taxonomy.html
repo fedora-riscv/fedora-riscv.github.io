@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="doc-head"><div class="wrap">
+  <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span><span>标签</span></nav>
+  <h1 class="big-title">Tags</h1>
+  <p class="sub">按标签浏览文章</p>
+</div></div>
+<div class="wrap list-page">
+  <div class="tag-big">{{ range .Data.Terms.ByCount }}<a href="{{ .Page.RelPermalink }}"><strong>{{ .Page.Title }}</strong><span>{{ .Count }} 篇</span></a>{{ else }}<p class="empty">还没有标签。</p>{{ end }}</div>
+</div>
+{{ end }}

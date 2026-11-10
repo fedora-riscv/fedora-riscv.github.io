@@ -1,0 +1,5 @@
+{{- $src := .Destination }}{{ $w := 0 }}{{ $h := 0 }}
+{{- with .PageInner.Resources.Get (strings.TrimPrefix "./" .Destination) }}{{ $src = .RelPermalink }}{{ with .Width }}{{ $w = . }}{{ end }}{{ with .Height }}{{ $h = . }}{{ end }}{{ end -}}
+{{- $alt := .PlainText }}{{ if eq $alt "img" }}{{ $alt = "" }}{{ end -}}
+<span class="fig"><img src="{{ $src }}" alt="{{ $alt }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $w }} width="{{ $w }}" height="{{ $h }}"{{ end }} loading="lazy" decoding="async"></span>
+{{- /* */ -}}

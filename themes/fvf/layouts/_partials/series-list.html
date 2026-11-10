@@ -1,0 +1,5 @@
+<ol class="series">
+{{- range . }}
+  <li data-q="{{ .meta.title }} {{ .meta.summary }}"><a href="{{ .page.RelPermalink }}"><span class="num">{{ .meta.n }}</span><h3>{{ .meta.title }}</h3><span class="rt">{{ with .meta.kind }}<span class="kind">{{ . }}</span>{{ end }}约 {{ .page.ReadingTime }} 分钟</span><p>{{ .meta.summary }}</p></a></li>
+{{- end }}
+</ol>
