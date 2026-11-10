@@ -1,0 +1,5 @@
+<div class="topics">
+{{- range . }}
+  <a class="topic" href="{{ .page.RelPermalink }}" data-q="{{ .meta.title }} {{ .meta.summary }}"><h3>{{ .meta.title }}</h3><p>{{ .meta.summary }}</p><span class="rt">约 {{ .page.ReadingTime }} 分钟</span></a>
+{{- end }}
+</div>

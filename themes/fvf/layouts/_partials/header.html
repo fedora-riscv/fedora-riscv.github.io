@@ -1,0 +1,24 @@
+<header class="top" id="top"><div class="wrap">
+  <div class="bar">
+    <a class="brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} 社区首页"><img src="{{ "images/fvf-mark-white.png" | relURL }}" alt="" width="18" height="34"><span>{{ site.Title }}</span><small>社区</small></a>
+    <nav class="links" aria-label="站点导航">
+      {{- range site.Menus.main }}
+      <a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    <div class="top-end">
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="切换深浅色">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+      </button>
+      <a class="btn" href="{{ site.Params.images }}">下载镜像 →</a>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="打开菜单" aria-controls="mobile-nav" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-links" id="mobile-nav" aria-label="站点导航">
+    {{- range site.Menus.main }}
+    <a href="{{ .URL }}"{{ if $.IsMenuCurrent "main" . }} aria-current="page"{{ end }}>{{ .Name }}</a>
+    {{- end }}
+  </nav>
+</div></header>

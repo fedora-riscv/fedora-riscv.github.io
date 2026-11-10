@@ -1,0 +1,21 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{{- $meta := partial "meta.html" . }}
+{{- $title := cond .IsHome (printf "%s · %s" site.Title site.Params.subtitle) (printf "%s · %s" $meta.title site.Title) }}
+<title>{{ $title }}</title>
+{{- $desc := cond .IsHome site.Params.description ($meta.summary | default site.Params.description) }}
+<meta name="description" content="{{ $desc | plainify | truncate 160 }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $meta.title }}">
+<meta property="og:description" content="{{ $desc | plainify | truncate 160 }}">
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta name="theme-color" content="#070D22">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}">
+{{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">{{ end }}
+<link rel="preload" href="{{ "fonts/ArchivoItalic-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/RedHatText-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<script>try{var t=localStorage.getItem("fvf-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+{{- $css := slice (resources.Get "css/main.css") (resources.Get "css/chroma.css") | resources.Concat "css/site.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

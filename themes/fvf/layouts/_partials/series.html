@@ -1,0 +1,8 @@
+{{- /* Pages of a section split into ordered series items and the rest. Input: a section page. */ -}}
+{{- $series := slice }}{{ $other := slice }}
+{{- range .RegularPagesRecursive }}
+  {{- $m := partial "meta.html" . }}
+  {{- $item := dict "page" . "meta" $m "n" $m.n }}
+  {{- if $m.series }}{{ $series = $series | append $item }}{{ else }}{{ $other = $other | append $item }}{{ end }}
+{{- end }}
+{{- return dict "series" (sort $series "n") "other" $other }}

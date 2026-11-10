@@ -1,0 +1,15 @@
+<aside class="side">
+  <div class="panel join"><h4>Telegram 群</h4><p>{{ site.Params.telegramName }}，有问题直接问，板卡适配、编包、刷机都能聊。</p><a class="btn-lg gold sm" href="{{ site.Params.telegram }}">加入 t.me/fedorariscv ↗</a></div>
+  {{- with site.Taxonomies.tags }}
+  <div class="panel"><h4>标签</h4><div class="chips">{{ range .ByCount }}<a class="chip" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} <b>{{ .Count }}</b></a>{{ end }}</div></div>
+  {{- end }}
+  <div class="panel"><h4>相关站点</h4>
+    <ul class="linklist">
+      <li><a href="{{ site.Params.website }}"><span>FVF 官网</span><span>www</span></a></li>
+      <li><a href="{{ site.Params.images }}"><span>镜像下载</span><span>images</span></a></li>
+      <li><a href="https://openkoji.iscas.ac.cn/koji/"><span>openKoji 构建系统</span><span>koji</span></a></li>
+      <li><a href="https://openkoji.iscas.ac.cn/pub/stats/"><span>编包统计</span><span>stats</span></a></li>
+    </ul>
+  </div>
+  <div class="panel"><h4>投稿</h4><p>写了教程或踩坑记录，可以投到站点仓库 <a href="{{ site.Params.siteRepo }}">fedora-riscv.github.io</a>，Markdown 一篇一个文件，提 PR 即可。</p></div>
+</aside>

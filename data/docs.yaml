@@ -1,0 +1,65 @@
+# Presentation metadata for pages whose Markdown lives in a submodule we do not
+# edit (content/fedora-riscv-devel-docs -> fedora-riscv/Fedora_riscv_devel_docs).
+#
+# sections.<dir>: title / description of the section and the base URL used for
+#   the "edit on GitHub" link (path inside the section is appended).
+# pages.<bundle or file name>: keyed by the page's ContentBaseName.
+#   n       position in its series (string, also shown as the number)
+#   series  key under `series`
+#   title   display title (front matter titles carry a "01-" prefix)
+#   summary one or two sentences for lists (front matter summaries are empty)
+#   kind    optional label shown next to the reading time
+# Pages without an entry still render, with their front matter title and an
+# excerpt from the body.
+
+sections:
+  fedora-riscv-devel-docs:
+    title: 开发文档
+    description: FVF 搭 Koji 构建农场、移植 Fedora 到 RISC-V 的开发文档。
+    edit: https://github.com/fedora-riscv/Fedora_riscv_devel_docs/blob/main/
+
+series:
+  koji:
+    title: Koji 系列
+
+pages:
+  01-Koji基础知识:
+    series: koji
+    n: "01"
+    title: Koji 基础知识
+    summary: Koji 的设计特性、Package / Build / RPM / NVR 等术语，hub、kojid、kojira 各组件分工，以及 tag 与 target 的继承关系。
+  02-Koji使用简介:
+    series: koji
+    n: "02"
+    title: Koji 使用简介
+    summary: 用 koji 命令行连 hub、查软件包与最近任务、管理软件包并发起一次 build；Web 界面怎么看。
+  03-Koji部署指南-kojihub部署:
+    series: koji
+    n: "03"
+    title: kojihub 部署
+    kind: 部署
+    summary: 准备 SSL 证书与 PostgreSQL，配置 koji-hub 和 koji-web，搭起整个构建系统的中心。
+  04-Koji部署指南-koji仓库部署及bootstrap:
+    series: koji
+    n: "04"
+    title: koji 仓库部署及 bootstrap
+    kind: 部署
+    summary: 创建 tag、build tag 与 build target，导入软件包并生成 repodata；用外部仓库 bootstrap 新环境。
+  05-Koji部署指南-mock辅助编译及仓库测试:
+    series: koji
+    n: "05"
+    title: mock 辅助编译及仓库测试
+    kind: 部署
+    summary: 用 mock 搭干净的 chroot 替代 rpmbuild，逐项解读配置文件，并用它验证仓库可用。
+  06-Koji部署指南-riscv-builders批量部署指南:
+    series: koji
+    n: "06"
+    title: RISC-V builders 批量部署
+    kind: 部署
+    summary: builder 编号、证书 CN 与镜像命名规则，hub 端登记 builder，脚本化批量上线 RISC-V 构建机。
+  ext_fedora_mbs:
+    title: Fedora 模块构建服务（MBS）
+    summary: Modularity 的模块流与安装配置文件，本地构建模块，部署 MBS 服务。
+  fedora-riscv-ros2-complie:
+    title: Fedora ROS2 编译指南
+    summary: 依赖清单、colcon 编译流程，以及 patch 失败、atomic 链接错误等常见坑。

@@ -1,0 +1,15 @@
+{{- with site.Params.giscus }}
+<section class="comments" id="comments" aria-labelledby="c-title">
+  <div class="c-head">
+    <h2 id="c-title">讨论</h2>
+    <span class="c-note">评论存放在 <a href="https://github.com/{{ .repo }}/discussions">GitHub Discussions</a>，用 GitHub 账号登录即可留言</span>
+  </div>
+  <div class="giscus" id="giscus"
+    data-repo="{{ .repo }}" data-repo-id="{{ .repoId }}"
+    data-category="{{ .category }}" data-category-id="{{ .categoryId }}"
+    data-mapping="{{ .mapping | default "pathname" }}" data-lang="{{ .lang | default "zh-CN" }}"
+    data-theme-light="{{ "giscus/light.css" | absURL }}" data-theme-dark="{{ "giscus/dark.css" | absURL }}">
+    <noscript>评论区需要开启 JavaScript。也可以直接去 <a href="https://github.com/{{ .repo }}/discussions">GitHub Discussions</a> 留言。</noscript>
+  </div>
+</section>
+{{- end }}
