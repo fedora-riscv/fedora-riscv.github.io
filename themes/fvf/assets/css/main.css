@@ -24,6 +24,7 @@
   --code-dim: #6F7DA3;
   --mark-bg: rgba(253, 181, 21, .28);
   --shadow: 0 24px 48px -28px rgba(13, 22, 38, .35);
+  --focus: #2F63AD;
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --body: "Red Hat Text", "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
   --mono: "Red Hat Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -32,14 +33,14 @@
   :root:not([data-theme="light"]) {
     color-scheme: dark;
     --paper: #090F20; --paper-2: #0D1529; --card: #101A33; --ink: #E6ECF6; --muted: #93A0BA; --line: #1F2A44;
-    --fedora: #7DB9E8; --fedora-soft: rgba(125, 185, 232, .1); --gold-ink: #FDCB5C; --mark-bg: rgba(253, 181, 21, .2);
+    --fedora: #7DB9E8; --fedora-soft: rgba(125, 185, 232, .1); --focus: #FDB515; --gold-ink: #FDCB5C; --mark-bg: rgba(253, 181, 21, .2);
     --shadow: 0 24px 48px -28px rgba(0, 0, 0, .8);
   }
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
   --paper: #090F20; --paper-2: #0D1529; --card: #101A33; --ink: #E6ECF6; --muted: #93A0BA; --line: #1F2A44;
-  --fedora: #7DB9E8; --fedora-soft: rgba(125, 185, 232, .1); --gold-ink: #FDCB5C; --mark-bg: rgba(253, 181, 21, .2);
+  --fedora: #7DB9E8; --fedora-soft: rgba(125, 185, 232, .1); --focus: #FDB515; --gold-ink: #FDCB5C; --mark-bg: rgba(253, 181, 21, .2);
   --shadow: 0 24px 48px -28px rgba(0, 0, 0, .8);
 }
 
@@ -50,7 +51,8 @@ main { flex: 1 }
 a { color: inherit }
 img { max-width: 100% }
 [hidden] { display: none !important }
-:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; border-radius: 4px }
+.top, .hero, .doc-head, footer, .panel.join, .term { --focus: var(--gold) }
 .wrap { max-width: 1320px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
 @media (min-width: 700px) { .wrap { padding-left: max(40px, env(safe-area-inset-left, 0px)); padding-right: max(40px, env(safe-area-inset-right, 0px)) } }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
@@ -72,7 +74,6 @@ img { max-width: 100% }
 .top-end { margin-left: auto; display: flex; gap: 10px; align-items: center }
 .icon-btn { all: unset; cursor: pointer; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(232, 238, 249, .24); display: grid; place-items: center; color: var(--night-ink); flex: none }
 .icon-btn:hover { border-color: var(--night-ink) }
-.icon-btn:focus-visible { outline: 2px solid var(--gold) }
 .icon-btn svg { width: 17px; height: 17px }
 .menu-btn { display: none }
 .btn { display: inline-flex; align-items: center; gap: 10px; height: 38px; padding: 0 16px; border-radius: 999px; font: 600 14px/1 var(--body); text-decoration: none; background: var(--gold); color: #1A1200; transition: transform .25s; white-space: nowrap }
@@ -233,7 +234,6 @@ img { max-width: 100% }
 .term .bar { display: flex; justify-content: space-between; align-items: center; min-height: 38px; padding: 4px 8px 4px 16px; border-bottom: 1px solid var(--night-line); font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--code-dim) }
 .term .bar button { all: unset; cursor: pointer; font: 500 12px/1 var(--mono); letter-spacing: 0; text-transform: none; color: var(--code-dim); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--night-line) }
 .term .bar button:hover { color: var(--code-ink) }
-.term .bar button:focus-visible { outline: 2px solid var(--gold) }
 .term pre { margin: 0; padding: 16px 18px; overflow-x: auto; font: 400 14px/1.7 var(--mono); background: transparent !important }
 .term .chroma, .term .bg { background: transparent !important }
 .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--card) }
@@ -279,7 +279,7 @@ img { max-width: 100% }
 .g-id { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; padding: 8px 8px 8px 14px; border-radius: 10px; background: var(--paper-2) }
 .g-id code { font: 600 15px/1.4 var(--mono); flex: 1; min-width: 0; overflow-wrap: anywhere }
 .g-id button { all: unset; cursor: pointer; font: 600 13px/1 var(--body); padding: 9px 12px; border-radius: 8px; background: var(--card); border: 1px solid var(--line) }
-.g-id button:focus-visible { outline: 2px solid var(--gold) }
+.g-id button:focus-visible { outline: 2px solid var(--focus) }
 .rules { padding: 22px 24px; border-radius: 16px; border: 1px solid var(--line); max-width: 760px }
 .rules h4 { margin: 0 0 10px; font: 600 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted) }
 .rules ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 15px }

@@ -16,6 +16,9 @@
 {{ with .OutputFormats.Get "rss" }}<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">{{ end }}
 <link rel="preload" href="{{ "fonts/ArchivoItalic-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/RedHatText-VF.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
-<script>try{var t=localStorage.getItem("fvf-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t}catch(e){}</script>
+{{- if hugo.IsProduction }}
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' data: https:; font-src 'self'; frame-src https://giscus.app; connect-src 'self' https://giscus.app; object-src 'none'; base-uri 'self'; form-action 'self'">
+{{- end }}
+{{ with resources.Get "js/theme-init.js" | minify | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>{{ end }}
 {{- $css := slice (resources.Get "css/main.css") (resources.Get "css/chroma.css") | resources.Concat "css/site.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
