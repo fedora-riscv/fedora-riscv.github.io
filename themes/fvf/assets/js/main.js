@@ -56,6 +56,7 @@ if (tocLinks.length) {
   let ticking = false;
   const spy = () => {
     ticking = false;
+    if (!heads.length) return;
     let cur = heads[0];
     for (const h of heads) if (h.getBoundingClientRect().top < 140) cur = h;
     for (const a of tocLinks) a.classList.toggle('on', decodeURIComponent(a.hash.slice(1)) === cur.id);

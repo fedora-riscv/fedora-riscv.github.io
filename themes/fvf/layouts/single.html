@@ -3,9 +3,11 @@
 {{- $sec := .CurrentSection }}
 {{- $secMeta := partial "meta.html" $sec }}
 {{- $s := partial "series.html" $sec }}
+{{- if eq $sec site.Home }}{{ $s = dict "series" slice "other" slice }}{{ end }}
 {{- $all := $s.series | append $s.other }}
+{{- $pagerList := $s.series | append (sort $s.other "page.Date" "asc") }}
 {{- $seriesTitle := "" }}{{ with $m.series }}{{ $seriesTitle = (index hugo.Data.docs.series .).title | default "" }}{{ end }}
-{{- $idx := -1 }}{{ range $i, $e := $all }}{{ if eq $e.page $ }}{{ $idx = $i }}{{ end }}{{ end }}
+{{- $idx := -1 }}{{ range $i, $e := $pagerList }}{{ if eq $e.page $ }}{{ $idx = $i }}{{ end }}{{ end }}
 {{- $comments := and site.Params.giscus.repoId (ne .Params.comments false) }}
 <div class="doc-head"><div class="wrap">
   <nav class="crumbs" aria-label="位置"><a href="{{ "/" | relURL }}">首页</a><span>/</span>{{ if ne $sec .Site.Home }}<a href="{{ $sec.RelPermalink }}">{{ $secMeta.title }}</a><span>/</span>{{ end }}<span>{{ with $m.n }}{{ $seriesTitle }} {{ . }}{{ else }}{{ $m.title }}{{ end }}</span></nav>
@@ -32,16 +34,16 @@
   <article class="article">
     {{- $toc := .TableOfContents }}
     {{- $hasToc := gt (len (findRE `<li>` $toc)) 1 }}
-    {{ if $hasToc }}<details class="toc-m"><summary>本页目录</summary>{{ $toc }}</details>{{ end }}
+    {{ if $hasToc }}<details class="toc-m"><summary>本页目录</summary>{{ $toc | replaceRE `<nav id="TableOfContents">` "<nav>" | safeHTML }}</details>{{ end }}
     <div class="prose" id="prose">
       {{ .Content | replaceRE `(?s)<div align=['"]?center['"]?\s*>\s*<font size=['"]?20['"]?>.*?</font>\s*</div>` "" | replaceRE `<p>\[TOC\]</p>` "" | safeHTML }}
     </div>
     {{- if ge $idx 0 }}
     <nav class="pager" aria-label="上一篇和下一篇">
-      {{- if gt $idx 0 }}{{ $p := index $all (sub $idx 1) }}
+      {{- if gt $idx 0 }}{{ $p := index $pagerList (sub $idx 1) }}
       <a href="{{ $p.page.RelPermalink }}"><small>上一篇{{ with $p.meta.n }} · {{ . }}{{ end }}</small><b>← {{ $p.meta.title }}</b></a>
       {{- else }}<div class="none"><small>上一篇</small><b>这是第一篇</b></div>{{ end }}
-      {{- if lt $idx (sub (len $all) 1) }}{{ $n := index $all (add $idx 1) }}
+      {{- if lt $idx (sub (len $pagerList) 1) }}{{ $n := index $pagerList (add $idx 1) }}
       <a class="next" href="{{ $n.page.RelPermalink }}"><small>下一篇{{ with $n.meta.n }} · {{ . }}{{ end }}</small><b>{{ $n.meta.title }} →</b></a>
       {{- else }}<div class="next none"><small>下一篇</small><b>已经是最后一篇</b></div>{{ end }}
     </nav>

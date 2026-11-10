@@ -5,12 +5,11 @@
   <p class="sub">按分类浏览全部文章</p>
 </div></div>
 <div class="wrap list-page">
-  {{- range site.Sections }}{{ $m := partial "meta.html" . }}{{ with .RegularPagesRecursive }}
+  {{- range site.Sections }}{{ $m := partial "meta.html" . }}{{ $secAll := partial "series.html" . }}{{ with .RegularPagesRecursive }}
   <div>
     <div class="sec-head"><div><p class="eyebrow">分类</p><h2>{{ $m.title }}</h2></div><span class="meta">{{ len . }} 篇</span></div>
     <ul class="linklist">
-    {{- $sec := partial "series.html" (index . 0).CurrentSection }}
-    {{- range $sec.series | append $sec.other }}
+    {{- range $secAll.series | append $secAll.other }}
       <li><a href="{{ .page.RelPermalink }}"><span>{{ with .meta.n }}<span class="cat">{{ . }}</span>{{ end }}{{ .meta.title }}</span><span>{{ .page.Date.Format "2006-01-02" }}</span></a></li>
     {{- end }}
     </ul>
