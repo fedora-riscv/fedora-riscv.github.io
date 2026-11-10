@@ -2,5 +2,5 @@
 keywords = 'Fedora, RISC-V, Fedora-V, RISC-V Fedora'
 author = 'Fedora-V Force'
 [params.contact]
-    email = 'support@fedoravforce.com'
+    email = 'support@fedoravforce.org'
     github = 'fedora-riscv'

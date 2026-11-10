@@ -44,7 +44,7 @@ discussions = 'https://github.com/fedora-riscv/Discussions/discussions'
 # Assembled by JavaScript so the address does not appear in the HTML source.
 [params.contact]
 emailUser = 'support'
-emailDomain = 'fedoravforce.com'
+emailDomain = 'fedoravforce.org'
 
 [params.giscus]
 repo = 'fedora-riscv/Discussions'
